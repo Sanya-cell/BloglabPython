@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ article.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <pre>{{ article.text }}</pre>
+    <br><br>
+    <p>Комментарии</p>
+    <hr><br>
+    {% for com in comment %}
+        <p>Пользователь: {{ com.name }}</p>
+        <p>Time of creating: {{ com.created_on|timesince }} ago</p>
+        <p>{{ com.comment }}</p>
+        <br>
+    {% endfor %}
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}
